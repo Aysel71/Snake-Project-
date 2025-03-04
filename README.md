@@ -132,6 +132,10 @@ We experimented with various hyperparameters to optimize performance:
 | Episodes | {3K, 5K, 10K} | `5K` |
 | Max Steps | {500, 800, 1000} | `800` |
 
+
+![Snake Game - Random Agent](assets/snake_attempt4.gif)
+
+
 ### 🤖 GPT Usage
 GPT was used for:
 - **Code optimization**: Generating efficient RL training loops
