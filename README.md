@@ -85,6 +85,12 @@ class RandomAgentPolicy():
         return random.choice(list(range(4))), None
 ```
 
+Watch the trained agent play Snake! 🎮
+
+![Snake Game](assets/snake_random_agent.mp4)
+
+
+
 ### 🧠 Policy Gradient Method (Reinforcement Learning)
 The main training approach used is the **Policy Gradient** method:
 
