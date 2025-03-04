@@ -87,7 +87,10 @@ class RandomAgentPolicy():
 
 Watch the trained agent play Snake! 🎮
 
-![Snake Game](assets/snake_random_agent (1).gif)
+## 🎥 Random Agent Gameplay
+Here is a demo of the random agent playing Snake:
+
+![Snake Game - Random Agent](assets/snake_random_agent.gif)
 
 
 
