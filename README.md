@@ -120,8 +120,6 @@ def compute_discounted_rewards(rewards, gamma=0.99):
     return torch.FloatTensor(discounted_rewards)
 ```
 
----
-
 ## 🏗️ Hyperparameter Tuning
 We experimented with various hyperparameters to optimize performance:
 
@@ -131,10 +129,6 @@ We experimented with various hyperparameters to optimize performance:
 | Discount Factor (γ) | {0.7, 0.9, 0.95} | `0.95` |
 | Episodes | {3K, 5K, 10K} | `5K` |
 | Max Steps | {500, 800, 1000} | `800` |
-
-
-![Snake Game - Random Agent](assets/snake_attempt4.gif)
-
 
 ### 🤖 GPT Usage
 GPT was used for:
@@ -146,7 +140,7 @@ GPT was used for:
 
 ## 📈 Results
 - The agent improved significantly over the random policy.
-- Average reward increased from `-0.5` (random) to `2.8+` (trained model).
+- Average reward increased from `-0.5` (random) to `10.24+` (trained model).
 - Training progress visualization:
 
 ```python
@@ -165,6 +159,7 @@ Results were measured over 50 evaluation episodes:
 | Trained v1 (γ=0.95, 5K episodes) | 0.06 | 0.58 |
 | Trained v2 (γ=0.7, 5K episodes) | -0.42 | 0.57 |
 | Trained v3 (γ=0.95, 20K episodes) | 4.0 | 2.72 |
+| Trained v4 (γ=0.95, 30K episodes) | 10.24 | 5.24 |
 
 ---
 
@@ -175,4 +170,6 @@ Results were measured over 50 evaluation episodes:
 
 ## 📜 License
 This project is licensed under the MIT License.
+
+
 
