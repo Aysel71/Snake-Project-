@@ -26,33 +26,11 @@ To install the required dependencies, run:
 pip install torch torchvision gym numpy matplotlib pillow
 ```
 
-## 🚀 Usage
-### 🏋️ Training the Agent
-To train the agent, run:
-```bash
-python train.py
-```
-This will train the CNN-based policy network using the **Policy Gradient method** for `EPISODES` episodes.
-
-### 📊 Evaluating the Agent
-To evaluate the trained policy, run:
-```bash
-python evaluate.py
-```
-This will run the trained agent for `n_eval_episodes` episodes and compute the mean and standard deviation of the rewards.
-
-### 🎬 Visualizing the Gameplay
-To generate an animation of the agent playing the game, run:
-```bash
-python visualize.py
-```
-This will save images of the agent's gameplay and create an animated visualization.
-
 ---
 
 ## 📜 Formal Definition of the Environment
 The environment follows the **Markov Decision Process (MDP)** formulation with:
-- **State Space (S):** A 2D grid representation of the Snake game
+- **State Space (S):** A 2D grid representation of the Snake game. In our case 10x10 grid, each cell is 0 (empty cell), 1 (apple), or 2 (snake)
 - **Action Space (A):** {Up, Down, Left, Right} (Discrete)
 - **Transition Function (T):** Moves the snake in the chosen direction, updating the environment
 - **Reward Function (R):**
@@ -111,13 +89,51 @@ For each episode:
 
 #### 📝 Implementation
 ```python
-def compute_discounted_rewards(rewards, gamma=0.99):
-    discounted_rewards = []
-    cumulative_reward = 0
-    for reward in reversed(rewards):
-        cumulative_reward = reward + gamma * cumulative_reward
-        discounted_rewards.insert(0, cumulative_reward)
-    return torch.FloatTensor(discounted_rewards)
+def train(env, policy, optimizer, num_episodes=1000, gamma=0.95, max_steps=800, scheduler=None):
+    train_rewards = []
+    policy = policy.train()
+    for episode in range(num_episodes):
+        state, _ = env.reset()
+        done = False
+        log_probs = []
+        rewards = []
+
+        steps = 0
+        while not done:
+            action, log_prob = select_action(policy, state)
+            next_state, reward, terminated, info = env.step(action)
+            done = terminated
+
+            log_probs.append(log_prob)
+            rewards.append(reward)
+
+            state = next_state
+            steps += 1
+            if steps > max_steps:
+                done = True
+
+        # Compute returns
+        returns = []
+        G = 0
+        for r in reversed(rewards):
+            G = r + gamma * G
+            returns.insert(0, G)
+
+        returns = torch.tensor(returns, dtype=torch.float32)
+        returns = (returns - returns.mean()) / (returns.std() + 1e-9)  # Normalize returns
+
+        # Compute loss and update policy
+        loss = 0
+        for log_prob, G in zip(log_probs, returns):
+            loss -= log_prob * G
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        train_rewards.append(sum(rewards))
+
+    return train_rewards
 ```
 ## 🏗️ Hyperparameter Tuning
 We experimented with various hyperparameters to optimize performance:
@@ -126,16 +142,17 @@ We experimented with various hyperparameters to optimize performance:
 |---------------|------------|------------|
 | Learning Rate | {1e-4, 1e-3, 1e-2} | `1e-3` |
 | Discount Factor (γ) | {0.7, 0.9, 0.95} | `0.95` |
-| Episodes | {3K, 5K, 10K} | `5K` |
+| Episodes | {5K, 10K, 20K, 30K} | `30K` |
 | Max Steps | {500, 800, 1000} | `800` |
 
 ![Snake Game - Random Agent](assets/snake_attempt4.gif)
 
 ### 🤖 GPT Usage
 GPT was used for:
-- **Code optimization**: Generating efficient RL training loops
-- **Bug fixing**: Debugging PyTorch tensor operations
+- **Environment creation**: Creating a Snake game environment since the one in the PyGame was faulty
 - **Hyperparameter insights**: Suggesting appropriate learning rates
+- **Report generation**
+- **Visualization**
 
 ---
 
