@@ -145,6 +145,9 @@ We experimented with various hyperparameters to optimize performance:
 | Episodes | {5K, 10K, 20K, 30K} | `30K` |
 | Max Steps | {500, 800, 1000} | `800` |
 
+Rewards with epoch:
+![Reward Graph](assets/reward.jpg)
+
 ![Snake Game - Random Agent](assets/snake_attempt4.gif)
 
 ### 🤖 GPT Usage
