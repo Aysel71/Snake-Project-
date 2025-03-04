@@ -38,6 +38,7 @@ The environment follows the **Markov Decision Process (MDP)** formulation with:
   - Eating an apple: `+1`
   - Hitting a wall or itself: `-1` (game over)
   - Living time step: `0`
+- **Agent's goal:** Maximize the reward (no winning condition)
 
 ```python
 class SnakeEnv(gym.Env):
