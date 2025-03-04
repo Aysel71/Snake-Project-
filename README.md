@@ -33,6 +33,7 @@ The environment follows the **Markov Decision Process (MDP)** formulation with:
 - **State Space (S):** A 2D grid representation of the Snake game. In our case 10x10 grid, each cell is 0 (empty cell), 1 (apple), or 2 (snake)
 - **Action Space (A):** {Up, Down, Left, Right} (Discrete)
 - **Transition Function (T):** Moves the snake in the chosen direction, updating the environment
+- **Terminal Conditions:** Collision with the wall or with the snake body itself
 - **Reward Function (R):**
   - Eating an apple: `+1`
   - Hitting a wall or itself: `-1` (game over)
