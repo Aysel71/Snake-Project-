@@ -119,7 +119,6 @@ def compute_discounted_rewards(rewards, gamma=0.99):
         discounted_rewards.insert(0, cumulative_reward)
     return torch.FloatTensor(discounted_rewards)
 ```
-
 ## 🏗️ Hyperparameter Tuning
 We experimented with various hyperparameters to optimize performance:
 
@@ -129,6 +128,8 @@ We experimented with various hyperparameters to optimize performance:
 | Discount Factor (γ) | {0.7, 0.9, 0.95} | `0.95` |
 | Episodes | {3K, 5K, 10K} | `5K` |
 | Max Steps | {500, 800, 1000} | `800` |
+
+![Snake Game - Random Agent](assets/snake_attempt4.gif)
 
 ### 🤖 GPT Usage
 GPT was used for:
