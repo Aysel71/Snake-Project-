@@ -146,7 +146,11 @@ We experimented with various hyperparameters to optimize performance:
 | Max Steps | {500, 800, 1000} | `800` |
 
 Rewards with epoch:
+
+
 ![Reward Graph](assets/reward.jpg)
+
+
 
 ![Snake Game - Random Agent](assets/snake_attempt4.gif)
 
